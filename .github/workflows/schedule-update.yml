@@ -14,11 +14,11 @@ jobs:
     steps:
       # 克隆仓库
       - name: 克隆仓库
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       # 配置 Python 环境
       - name: 设置 Python
-        uses: actions/setup-python@v2.2.2
+        uses: actions/setup-python@v4
         with:
           python-version: "3.8"
 
