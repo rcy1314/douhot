@@ -45,4 +45,4 @@ jobs:
         run: |
           git add .
           git commit -m "auto update"
-          git push -u origin main
+          git push -u origin main --token ${{ secrets.WOW_TOKEN }}  # 使用个人访问令牌进行身份验证
