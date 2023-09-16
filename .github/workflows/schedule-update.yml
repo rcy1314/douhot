@@ -14,12 +14,12 @@ jobs:
 
     steps:
       # 克隆仓库
-      - name: Checkout repo
-        uses: actions/checkout@v3
+      - name: Clone repo
+        uses: actions/checkout@v2
 
       # 配置python环境
       - name: Set up Python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v2
         with:
           python-version: "3.8"
 
@@ -29,20 +29,21 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      # 配置git用户身份信息
-      - name: Configure Git
+      # 配置git
+      - name: Config git
         run: |
-          git config --global user.email "1129159201@qq.com"
-          git config --global user.name "rcy1314
-
-      - name: Pull latest changes
-        run: git pull
-
-      - name: Run Python script
+          git config --local user.email "1129159201@qq.com"
+          git config --local user.name "rcy1314"
+         
+          git pull --rebase
+          
+      # 运行
+      - name: Run python
         run: python main.py
 
-      - name: Commit and push changes
+      # 更新仓库
+      - name: Update repo
         run: |
           git add .
-          git commit -m "Auto update"
-          git push
+          git commit -m "auto update"
+          git push -u origin main
