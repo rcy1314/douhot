@@ -34,7 +34,7 @@ jobs:
         run: |
           git config --local user.email "1129159201@qq.com"
           git config --local user.name "rcy1314"
-          git remote set-url origin "https://${{ github.actor }}:${{ github.token }}@github.com/${{ github.repository }}"
+          git remote set-url origin "https://${{ github.actor }}:${{ secrets.WOW_TOKEN }}@github.com/${{ github.repository }}"
           git pull --rebase
           
       # 运行
