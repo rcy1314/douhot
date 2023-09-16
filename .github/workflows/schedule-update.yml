@@ -33,17 +33,15 @@ jobs:
         run: |
           git config --local user.email "1129159201@qq.com"
           git config --local user.name "rcy1314"
-
           git pull --rebase
 
       # 运行 Python
       - name: 运行 Python
         run: python main.py
 
-      # 更新仓库
-      - name: 更新仓库
+       # 提交代码
+      - name: 提交代码
         run: |
           git add .
-          git commit -m "auto update"
-          git remote set-url origin "https://x-access-token:${{ secrets.WORK_TOKEN }}@github.com/rcy1314/douhot.git"
+          git commit -m "Update"
           git push origin main
