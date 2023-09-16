@@ -45,5 +45,5 @@ jobs:
         run: |
           git add .
           git commit -m "auto update"
-          git remote set-url origin "https://x-access-token:${ACCESS_TOKEN}@github.com/rcy1314/douhot.git"
+          git remote set-url origin "https://x-access-token:${{ secrets.WORK_TOKEN }}@github.com/rcy1314/douhot.git"
           git push origin main
