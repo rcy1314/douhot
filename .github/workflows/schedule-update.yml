@@ -25,7 +25,7 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-     # 运行 Python
+      # 运行 Python
       - name: 运行 Python
         run: python main.py
 
@@ -36,17 +36,19 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.WOW_TOKEN }}
         run: |
           if [[ -n "$(git status --porcelain)" ]]; then
-          pwd
-          git config --local user.name "${U_NAME}"  # 修改name
-          git config --local user.email "${U_EMAIL}"  # 修改email
-          git status -s
-          git add README.md
-
-          export TZ='Asia/Shanghai' # 更改时区
-          git commit -m "Github RSS Translate Auto Builder at `date +'%Y-%m-%d %H:%M'`"  # 提交记录包含时间 跟上面更改时区配合
-
-          echo "======git push===="
-          git push --force origin main
+            pwd
+            git config --local user.name "${U_NAME}"  # 修改name
+            git config --local user.email "${U_EMAIL}"  # 修改email
+            git status -s
+            git add README.md
+            echo "======git push===="
+            git push --force origin main
           else
-          echo "No changes, skip push."
+            echo "No changes, skip push."
           fi
+
+      - name: Send DingTalk message
+        env:
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+        run: |
+          curl -H "Content-Type: application/json" -X POST -d '{"msgtype": "text", "text": {"content": "抖音热榜信息更新了！"}}' $WEBHOOK_URL
