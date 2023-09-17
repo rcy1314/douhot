@@ -30,7 +30,7 @@ jobs:
         id: run_python
         run: |
           python main.py
-          echo "::set-output name=hot_text::$(cat hot_text.txt)"
+          echo "HOT_TEXT=$(cat hot_text.txt)" >> $GITHUB_ENV
 
       - name: Push changes to remote repository
         env:
@@ -53,6 +53,5 @@ jobs:
       - name: Send DingTalk message
         env:
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
-          HOT_TEXT: ${{ steps.run_python.outputs.hot_text }}
         run: |
-          curl -H "Content-Type: application/json" -X POST -d '{"msgtype": "text", "text": {"content": "抖音热榜信息更新了！热榜内容：${HOT_TEXT}"}}' $WEBHOOK_URL
+          curl -H "Content-Type: application/json" -X POST -d '{"msgtype": "text", "text": {"content": "抖音热榜信息更新了！热榜内容：'"$HOT_TEXT"'"}}' $WEBHOOK_URL
