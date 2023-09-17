@@ -30,7 +30,7 @@ jobs:
         id: run_python
         run: |
           python main.py
-          echo "HOT_TEXT=$(cat hot_text.txt)" >> $GITHUB_ENV
+          echo "HOT_TEXT=$(cat hot_text.txt | sed 's/"/\\"/g' | sed "s/'/\\'/g")" >> $GITHUB_ENV
 
       - name: Push changes to remote repository
         env:
