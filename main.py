@@ -291,7 +291,7 @@ def run():
     save_archive_md(archiveMd)
 
     # 将热榜信息写入文件
-    with open('hot_text.txt', 'w', encoding='utf-8') as file:
+   with open('/path/to/hot_text.txt', 'w', encoding='utf-8') as file:
         file.write(todayMd)
 
 
