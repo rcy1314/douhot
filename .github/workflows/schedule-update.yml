@@ -27,7 +27,10 @@ jobs:
 
       # 运行 Python
       - name: 运行 Python
-        run: python main.py
+        id: run_python
+        run: |
+          python main.py
+          echo "::set-output name=searches::$(cat searches.txt)"
 
       - name: Push changes to remote repository
         env:
@@ -50,5 +53,6 @@ jobs:
       - name: Send DingTalk message
         env:
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+          SEARCHES: ${{ steps.run_python.outputs.searches }}
         run: |
-          curl -H "Content-Type: application/json" -X POST -d '{"msgtype": "text", "text": {"content": "抖音热榜信息更新了！"}}' $WEBHOOK_URL
+          curl -H "Content-Type: application/json" -X POST -d '{"msgtype": "text", "text": {"content": "抖音热榜信息更新了！搜索量：${SEARCHES}"}}' $WEBHOOK_URL
