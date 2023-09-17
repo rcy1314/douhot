@@ -290,10 +290,6 @@ def run():
     archiveMd = generate_archive_md(searches, stars, lives, musics, brands)
     save_archive_md(archiveMd)
 
-    # 将热榜信息写入文件
-    with open('hot_text.txt', 'w', encoding='utf-8') as file:
-        file.write(todayMd)
-
 
 if __name__ == "__main__":
     try:
