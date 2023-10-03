@@ -12,14 +12,14 @@ jobs:
       TZ: Asia/Shanghai
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: 18
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           token: ${{ secrets.WOW_TOKEN }}
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: 3.8
       - name: Install dependencies
