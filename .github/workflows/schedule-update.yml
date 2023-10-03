@@ -29,12 +29,14 @@ jobs:
         run: |
           git config --global user.email "${{ secrets.U_EMAIL }}"
           git config --global user.name "${{ secrets.U_NAME }}"
-      - name: Update README.md
+      # 运行
+      - name: Run python
+        run: python main.py
+      - name: Update repo
         run: |
-          echo "$(date)" > README.md
-          git add README.md
-          git commit -m "Update README.md"
-          git push
+          git add .
+          git commit -m "auto update"
+          git push -u origin main
       - name: Push changes to remote repository
         if: github.ref == 'refs/heads/main'
         env:
