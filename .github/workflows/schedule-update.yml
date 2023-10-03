@@ -10,31 +10,30 @@ jobs:
     runs-on: ubuntu-20.04
     env:
       TZ: Asia/Shanghai
+    strategy:
+      matrix:
+        node-version: [16.x]
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
         with:
           token: ${{ secrets.WOW_TOKEN }}
-
-      - name: Set up Python 
+      - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: 3.8
-
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-
       - name: Run Python script
         run: python main.py
-
       - name: Update README.md
         run: |
           echo "$(date)" > README.md
           git add README.md
           git commit -m "Update README.md"
           git push
-
       - name: Push changes to remote repository
         env:
           U_NAME: ${{ secrets.U_NAME }}
