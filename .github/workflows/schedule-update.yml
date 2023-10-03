@@ -7,19 +7,16 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     env:
       TZ: Asia/Shanghai
-    strategy:
-      matrix:
-        node-version: 16.2
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
         with:
           token: ${{ secrets.WOW_TOKEN }}
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v2
         with:
           python-version: 3.8
       - name: Install dependencies
@@ -28,6 +25,12 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Run Python script
         run: python main.py
+      - name: Update repo
+        run: |
+          git add .
+          git commit -m "auto update"
+          git push -u origin main
+
       - name: Update README.md
         run: |
           echo "$(date)" > README.md
